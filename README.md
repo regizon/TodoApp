@@ -1,4 +1,4 @@
-#Django TodoApp
+#DjangoTodoApp
 
 Simple app to manage tasks (CRUD) via Django.
 Allows user to register, create tasks, mark as done, edit, delete and prioritize them.
