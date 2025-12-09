@@ -1,6 +1,6 @@
 DjangoTodoApp
 
-<img src="https://ibb.co/TQqj8JT" width="600">
+<img src="https://i.ibb.co/b4RwBY3/2025-12-09-194221.png" width="600">
 
 Simple app to manage tasks (CRUD) via Django.
 Allows user to register, create tasks, mark as done, edit, delete and prioritize them.
