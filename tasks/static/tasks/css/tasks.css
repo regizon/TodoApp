@@ -1,0 +1,31 @@
+a {
+    text-decoration: none;
+    outline: none;
+    color: black;
+}
+
+.ms-10 {
+    margin-left: 10rem;
+}
+
+
+.me-10 {
+    margin-right: 10rem;
+}
+.table.table > thead > tr > th {
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.high-priority {
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+    padding: 8px;
+    border-width: 4px;
+    font-size: 15px;
+}
+
+.user-icon {
+    width: 25px;
+    height: 25px;
+}

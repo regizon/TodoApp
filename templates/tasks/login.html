@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100 bg-light">
+  <div class="card p-4 shadow" style="width: 400px;">
+      <h2 class="text-center mb-4">TodoApp login</h2>
+      {% include "tasks/forms/auth_form.html" with action_url="login" button_text="Login"%}
+  </div>
+</body>
+</html>

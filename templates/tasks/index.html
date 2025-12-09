@@ -1,0 +1,118 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tasks</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'tasks/css/tasks.css' %}">
+</head>
+    <nav class="navbar bg-body-tertiary" style="background-color: #f0f0f0;">
+        <div class="container-fluid">
+            <div class="container d-flex justify-content-between align-items-center">
+                <span class="navbar-brand mb-0 h1"><a href="/">TodoApp</a></span>
+                <span class="navbar-text d-flex align-items-center">
+                    <img class="user-icon me-2" src="{% static 'tasks/img/user.svg' %}">
+                    <a href="logout" >Logout</a>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-content">
+        <h2 class="mt-4">Tasks</h2>
+        <div class="auth d-flex justify-content-between mt-2">
+            {% if user.is_authenticated %}
+                <p class="fs-4 mb-0">Welcome, {{ user }}!</p>
+            {% endif %}
+            <div>
+                <form method="POST" action="addTask">
+                    {% csrf_token %}
+                    {{ AddTaskForm }}
+                    <input type="submit" class="btn btn-primary" value="Add Task">
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <form method="POST" action="search" class="d-flex">
+                {% csrf_token %}
+                {{ SearchForm }}
+                <input type="submit" class="btn btn-info mt-3" value="Search">
+            </form>
+        </div>
+        <table class="table table-bordered mt-3">
+          <thead>
+            <tr>
+              <th scope="col" class="col-6">Task</th>
+              <th scope="col" class="col-1">Priority</th>
+              <th scope="col" class="col-1">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td><span>{{ task.title }}</span></td>
+                    <td class="d-flex justify-content-center">
+                        <form action="updatePriority" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ task.id }}" name="taskId">
+                            <input type="hidden" value="{{ task.priority }}" name="priority">
+                            <div class="btn-group">
+                              {% if task.priority == "1" %}
+                                  <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    High
+                                  </button>
+                                  <ul class="dropdown-menu p-3">
+                                    <li class="mb-3 ms-2"><button type="button" class="btn btn-warning">Medium</button></li>
+                                    <li class="ms-2"><button type="button" class="btn btn-success">Low</button></li>
+                                  </ul>
+                                    {% elif task.priority == "2" %}
+                                    <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Medium
+                                  </button>
+                                    <ul class="dropdown-menu p-3">
+                                    <li class="mb-3 ms-2"><button type="button" class="btn btn-danger">High</button></li>
+                                    <li class="ms-2"><button type="button" class="btn btn-success">Low</button></li>
+                                  </ul>
+                                  {% elif task.priority == "3" %}
+                                  <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Low
+                                  </button>
+                                  <ul class="dropdown-menu p-3">
+                                    <li class="mb-3 ms-2"><button type="button" class="btn btn-danger">High</button></li>
+                                    <li class="ms-2"><button type="button" class="btn btn-warning">Medium</button></li>
+                                  </ul>
+                              {% endif %}
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <div class="container d-flex gap-2">
+                            <button id="{{ task.id }}" type="button" class="btn btn-primary ms-3 edit_button ">Edit</button>
+                            <form action="deleteTask" method="POST">
+                                {% csrf_token %}
+                                <input class="btn btn-danger" type="submit" name="{{ task.id }}" value="Delete">
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <script src="{% static 'tasks/js/main.js' %}"></script>
+
+
+    </div>
+
+
+
+</body>
+</html>

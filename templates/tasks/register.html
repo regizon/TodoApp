@@ -1,0 +1,21 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="{% static 'tasks/css/tasks.css' %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100 bg-light">
+  <div class="card p-4 shadow" style="width: 400px;">
+      <h2 class="text-center mb-4">TodoApp Registration</h2>
+      {% include "tasks/forms/auth_form.html" %}
+  </div>
+</body>
+
+</html>
